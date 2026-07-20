@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Craving Burger Corner — Wetaskiwin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1712;
+    --charcoal:#242019;
+    --cream:#f4efe4;
+    --card:#ffffff;
+    --mustard:#f2b134;
+    --mustard-deep:#d99417;
+    --red:#c1272d;
+    --ink-soft:#5a5347;
+    --line: rgba(26,23,18,0.16);
+    --line-soft: rgba(26,23,18,0.09);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:'Work Sans', sans-serif; font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Anton', sans-serif; margin:0; text-transform:uppercase; letter-spacing:0.01em; font-weight:400;}
+  a{color:inherit;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 32px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--red); font-weight:600;
+  }
+
+  /* ---------- NAV ---------- */
+  header{position:fixed; top:0; left:0; right:0; z-index:500;}
+  .concept-bar{
+    background:var(--ink); color:rgba(244,239,228,0.8); text-align:center; padding:8px 16px;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.03em;
+  }
+  .concept-bar strong{color:#fff; font-weight:600;}
+  .navwrap{background:var(--cream); border-bottom:2px solid var(--ink); padding:16px 0;}
+  nav{display:flex; align-items:center; justify-content:space-between;}
+  .logo{font-family:'Anton', sans-serif; font-size:22px; text-decoration:none; display:flex; align-items:center; gap:10px; letter-spacing:0.01em;}
+  .logo .mark{width:30px; height:30px; background:var(--ink); display:flex; align-items:center; justify-content:center;}
+  .logo .mark svg{width:18px; height:18px;}
+  .nav-links{display:flex; align-items:center; gap:28px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; font-size:13.5px; font-weight:600; letter-spacing:0.03em; text-transform:uppercase; color:var(--ink);}
+  .nav-links a:hover{color:var(--red);}
+  .nav-social-item{display:flex; align-items:center;}
+  .nav-icon{width:32px; height:32px; border:1.5px solid var(--ink); display:flex; align-items:center; justify-content:center; color:var(--ink);}
+  .nav-icon svg{width:15px; height:15px;}
+  .nav-icon:hover{background:var(--ink); color:var(--cream);}
+  .nav-cta{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; font-weight:600; letter-spacing:0.04em;
+    background:var(--red); color:#fff; padding:11px 18px; text-decoration:none; white-space:nowrap;
+    border:1.5px solid var(--red); transition:background 0.15s ease;
+  }
+  .nav-cta:hover{background:#9c1f24;}
+  .nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:4px;}
+  .nav-toggle span{display:block; width:22px; height:2px; background:var(--ink); margin:5px 0;}
+  @media (max-width:900px){
+    .nav-links{
+      position:fixed; top:0; right:0; height:100vh; width:min(76vw,320px); background:var(--cream);
+      border-left:2px solid var(--ink);
+      flex-direction:column; align-items:flex-start; padding:100px 30px 30px; gap:26px;
+      transform:translateX(100%); transition:transform 0.3s ease; z-index:400;
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-links a{font-size:18px;}
+    .nav-cta{order:5; margin-top:6px;}
+    .nav-toggle{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{padding-top:96px;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; min-height:560px;}
+  @media (max-width:820px){ .hero-grid{grid-template-columns:1fr; min-height:auto;} }
+  .hero-copy{background:var(--charcoal); color:var(--cream); display:flex; flex-direction:column; justify-content:center; padding:70px 56px;}
+  @media (max-width:820px){ .hero-copy{padding:52px 28px;} }
+  @media (max-width:640px){ .hero-copy{padding:44px 22px;} }
+  .hero-copy .eyebrow{color:var(--mustard);}
+  .hero-copy h1{font-size:clamp(42px,5.6vw,66px); line-height:0.98; margin:16px 0 22px; color:#fff;}
+  .hero-copy p{font-size:17px; color:rgba(244,239,228,0.72); max-width:42ch; margin:0 0 28px;}
+  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap;}
+  .btn-primary{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; letter-spacing:0.03em;
+    background:var(--mustard); color:var(--ink); border:1.5px solid var(--mustard);
+    padding:14px 22px; text-decoration:none; display:inline-block; transition:background 0.15s ease;
+  }
+  .btn-primary:hover{background:var(--mustard-deep); border-color:var(--mustard-deep);}
+  .btn-ghost{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; letter-spacing:0.03em;
+    background:transparent; color:#fff; border:1.5px solid rgba(244,239,228,0.4);
+    padding:14px 22px; text-decoration:none; display:inline-block; transition:border-color 0.15s ease;
+  }
+  .btn-ghost:hover{border-color:#fff;}
+  .hero-photo{
+    background:repeating-linear-gradient(135deg, var(--mustard), var(--mustard) 26px, var(--mustard-deep) 26px, var(--mustard-deep) 52px);
+    display:flex; align-items:flex-end; padding:28px; position:relative;
+  }
+  .hero-photo .cap{
+    background:var(--ink); color:var(--cream); font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.04em; padding:10px 14px; text-transform:uppercase;
+  }
+  @media (max-width:820px){ .hero-photo{min-height:220px;} }
+
+  /* ---------- STAT STRIP ---------- */
+  .stat-strip{background:var(--ink); color:var(--cream);}
+  .stat-row{display:grid; grid-template-columns:repeat(4,1fr);}
+  @media (max-width:760px){ .stat-row{grid-template-columns:repeat(2,1fr);} }
+  .stat-cell{padding:30px 26px; border-left:1px solid rgba(244,239,228,0.18);}
+  .stat-cell:first-child{border-left:none;}
+  @media (max-width:760px){ .stat-cell:nth-child(3){border-left:none;} }
+  .stat-cell .big{font-family:'Anton', sans-serif; font-size:30px; color:var(--mustard); display:block; margin-bottom:4px;}
+  .stat-cell .small{font-size:12.5px; color:rgba(244,239,228,0.65); font-family:'IBM Plex Mono', monospace;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:88px 0;}
+  @media (max-width:640px){ section{padding:60px 0;} }
+  .section-head{border-bottom:2px solid var(--ink); padding-bottom:18px; margin-bottom:44px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;}
+  .section-head h2{font-size:clamp(30px,3.8vw,44px);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px;}
+  @media (max-width:820px){ .about-grid{grid-template-columns:1fr; gap:32px;} }
+  .about p{color:var(--ink-soft); margin:0 0 16px; max-width:56ch; font-size:16px;}
+  .about-list{list-style:none; margin:0; padding:0; border-top:1px solid var(--line);}
+  .about-list li{padding:14px 0; border-bottom:1px solid var(--line); display:flex; gap:12px; font-size:14.5px; color:var(--ink-soft);}
+  .about-list li::before{content:"—"; color:var(--red); font-weight:700; flex-shrink:0;}
+
+  /* ---------- MENU ---------- */
+  .menu{background:var(--charcoal); color:var(--cream);}
+  .menu .eyebrow{color:var(--mustard);}
+  .menu .section-head{border-bottom-color:rgba(244,239,228,0.3);}
+  .menu .section-head h2{color:#fff;}
+  .menu-cols{display:grid; grid-template-columns:1fr 1fr; gap:0 60px;}
+  @media (max-width:760px){ .menu-cols{grid-template-columns:1fr;} }
+  .menu-group{margin-bottom:36px;}
+  .menu-group h3{font-size:16px; letter-spacing:0.08em; color:var(--mustard); margin-bottom:14px; font-family:'IBM Plex Mono', monospace; text-transform:uppercase; font-weight:600;}
+  .menu-item{display:flex; align-items:baseline; gap:12px; padding:13px 0; border-bottom:1px solid rgba(244,239,228,0.15);}
+  .menu-item .name{font-weight:600; font-size:16px;}
+  .menu-item .desc{color:rgba(244,239,228,0.55); font-size:13.5px; display:block; margin-top:2px;}
+  .menu-item .dots{flex:1; border-bottom:1px dotted rgba(244,239,228,0.28); margin-bottom:5px;}
+  .menu-item .price{font-family:'IBM Plex Mono', monospace; font-size:14.5px; color:var(--mustard); white-space:nowrap;}
+  .menu-foot{margin-top:10px; font-size:13px; color:rgba(244,239,228,0.5); font-style:italic;}
+
+  /* ---------- REVIEWS ---------- */
+  .rating-block{display:flex; align-items:center; gap:16px;}
+  .rating-num{font-family:'Anton', sans-serif; font-size:44px; color:var(--red); line-height:1;}
+  .stars{color:var(--mustard-deep); font-size:15px; letter-spacing:1px; display:block;}
+  .rating-sub{font-size:12px; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace;}
+  .review-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--ink); border:1px solid var(--ink);}
+  @media (max-width:820px){ .review-grid{grid-template-columns:1fr;} }
+  .review-cell{background:var(--card); padding:26px 24px;}
+  .review-cell .stars{margin-bottom:12px;}
+  .review-cell p{font-size:15.5px; line-height:1.5; margin:0 0 16px; color:var(--ink);}
+  .review-cell .reviewer{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft);}
+
+  /* ---------- VISIT ---------- */
+  .visit-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:0; border:2px solid var(--ink);}
+  @media (max-width:900px){ .visit-grid{grid-template-columns:1fr;} }
+  .visit-info{padding:36px; background:var(--card);}
+  .info-row{display:flex; justify-content:space-between; padding:14px 0; border-bottom:1px solid var(--line-soft); font-size:15px; gap:14px;}
+  .info-row:first-child{padding-top:0;}
+  .info-row .k{color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.05em; text-transform:uppercase; padding-top:2px; white-space:nowrap;}
+  .info-row .v{text-align:right;}
+  .info-row .v a{text-decoration:none; border-bottom:1px solid var(--line);}
+  .visit-media{border-left:2px solid var(--ink); display:flex; flex-direction:column;}
+  @media (max-width:900px){ .visit-media{border-left:none; border-top:2px solid var(--ink);} }
+  .map-frame{position:relative; width:100%; aspect-ratio:16/10; background:var(--cream);}
+  .map-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+  .map-fallback{padding:10px 16px; font-size:12.5px; color:var(--ink-soft); text-align:center; border-top:1px solid var(--line-soft);}
+  .map-fallback a{color:var(--red); text-decoration:none; border-bottom:1px solid rgba(193,39,45,0.4);}
+
+  /* ---------- FACEBOOK ---------- */
+  .fb-frame{width:100%; max-width:100%; border-top:2px solid var(--ink);}
+  .fb-frame iframe{width:100%; height:420px; display:block; border:0;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:40px 0; background:var(--ink); color:var(--cream);}
+  .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
+  .foot-logo{font-family:'Anton', sans-serif; font-size:17px; text-transform:uppercase;}
+  .foot-meta{font-size:12.5px; color:rgba(244,239,228,0.55); font-family:'IBM Plex Mono', monospace;}
+
+  :focus-visible{outline:2px solid var(--red); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="concept-bar">This is a <strong>design concept</strong> built for review purposes — not the live Craving Burger Corner website.</div>
+  <div class="navwrap">
+    <div class="wrap">
+      <nav>
+        <a href="#top" class="logo">
+          <span class="mark">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 8h18M3 12h18M3 16h18" stroke="#f4efe4" stroke-width="2.6" stroke-linecap="round"/></svg>
+          </span>
+          Craving Burger Corner
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#visit">Visit</a></li>
+          <li class="nav-social-item">
+            <a href="https://www.facebook.com/profile.php?id=61586387662066" target="_blank" rel="noopener" class="nav-icon" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 4h-2a4 4 0 0 0-4 4v3H7v4h2v6h4v-6h2.5l0.5-4H13V8a1 1 0 0 1 1-1h2Z"/></svg>
+            </a>
+          </li>
+        </ul>
+        <a href="#visit" class="nav-cta">Order Online</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Wetaskiwin, Alberta</span>
+      <h1>Homemade burgers.<br>No shortcuts.</h1>
+      <p>Craving Burger Corner is a small counter-service spot on 50th St doing 100% homemade burgers, hand-cut fries, and made-to-order poutine — the kind of place regulars find and don't shut up about.</p>
+      <div class="hero-ctas">
+        <a href="#menu" class="btn-primary">See the menu</a>
+        <a href="#visit" class="btn-ghost">Get directions</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <span class="cap">Photo: Double Smash Burger</span>
+    </div>
+  </div>
+</section>
+
+<div class="stat-strip">
+  <div class="wrap">
+    <div class="stat-row">
+      <div class="stat-cell"><span class="big">4.7 ★</span><span class="small">42 reviews on Google</span></div>
+      <div class="stat-cell"><span class="big">$10–20</span><span class="small">average per person</span></div>
+      <div class="stat-cell"><span class="big">100%</span><span class="small">homemade — nothing pre-made</span></div>
+      <div class="stat-cell"><span class="big">3 ways</span><span class="small">dine-in · takeout · curbside</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <span class="eyebrow">About the shop</span>
+        <h2 style="font-size:clamp(28px,3.4vw,38px); margin:14px 0 20px;">Built on the burger, not the brand</h2>
+        <p>Craving Burger Corner is a small, independently-run counter on 50th St — no drive-thru, no shortcuts, just burgers built from scratch and fries cut in-house. It's the kind of place that earns a 4.7-star rating the slow way: one order at a time.</p>
+        <p>Reviewers consistently point to the same three things — the price is fair for what you get, the shop is spotless, and the people behind the counter clearly care. That's the whole pitch.</p>
+      </div>
+      <ul class="about-list">
+        <li>100% homemade patties, no shortcuts</li>
+        <li>Hand-cut fries and made-to-order poutine</li>
+        <li>Full menu of salads, wraps, and sandwiches too</li>
+        <li>Order online for pickup or curbside</li>
+        <li>Small shop, kept spotless, service called out by name in reviews</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">A working draft</span>
+      <h2>What's on the board</h2>
+    </div>
+    <div class="menu-cols">
+      <div>
+        <div class="menu-group">
+          <h3>Burgers</h3>
+          <div class="menu-item"><div><span class="name">Double Smash Burger</span><span class="desc">two smashed patties, house sauce, pickles</span></div><div class="dots"></div><span class="price">$14</span></div>
+          <div class="menu-item"><div><span class="name">Black Panther House Burger</span><span class="desc">the signature build — ask what's in it</span></div><div class="dots"></div><span class="price">$16</span></div>
+          <div class="menu-item"><div><span class="name">Mushroom Cheeseburger</span><span class="desc">sautéed mushrooms, melted cheddar</span></div><div class="dots"></div><span class="price">$15</span></div>
+        </div>
+        <div class="menu-group">
+          <h3>Sides</h3>
+          <div class="menu-item"><div><span class="name">Dill Pickle Poutine</span><span class="desc">hand-cut fries, curds, gravy, dill pickle</span></div><div class="dots"></div><span class="price">$10</span></div>
+          <div class="menu-item"><div><span class="name">Hand-Cut Fries</span><span class="desc">crispy outside, soft in — classic or seasoned</span></div><div class="dots"></div><span class="price">$6</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="menu-group">
+          <h3>Also on the menu</h3>
+          <div class="menu-item"><div><span class="name">Salads</span><span class="desc">a handful of options, dressed fresh</span></div><div class="dots"></div><span class="price">from $11</span></div>
+          <div class="menu-item"><div><span class="name">Wraps</span><span class="desc">same homemade standards, wrapped up</span></div><div class="dots"></div><span class="price">from $12</span></div>
+          <div class="menu-item"><div><span class="name">Sandwiches</span><span class="desc">for the days you want something lighter</span></div><div class="dots"></div><span class="price">from $12</span></div>
+        </div>
+        <div class="menu-group">
+          <h3>Hours</h3>
+          <div class="menu-item"><div><span class="name">Every day</span><span class="desc">confirm exact hours before this goes live</span></div><div class="dots"></div><span class="price">11am–7:40pm</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="menu-foot">— concept placeholders pulled from public listings. Swap in the real menu and prices before this goes live.</p>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Word of mouth</span>
+      <div class="rating-block">
+        <span class="rating-num">4.7</span>
+        <div><span class="stars">★★★★★</span><span class="rating-sub">42 Google reviews</span></div>
+      </div>
+    </div>
+    <div class="review-grid">
+      <div class="review-cell">
+        <span class="stars">★★★★★</span>
+        <p>"If you want a great homemade burger at a very reasonable price, this is the place. Spotless shop, top-notch service."</p>
+        <span class="reviewer">— Howard N., Local Guide</span>
+      </div>
+      <div class="review-cell">
+        <span class="stars">★★★★★</span>
+        <p>"The burger was cooked perfectly and just the right size. Toppings were fresh and crisp — the poutine held up too."</p>
+        <span class="reviewer">— John K., Local Guide</span>
+      </div>
+      <div class="review-cell">
+        <span class="stars">★★★★☆</span>
+        <p>"Ordered online, a little pricey but the mushroom burger was so yummy. Looking forward to dining in next time."</p>
+        <span class="reviewer">— Kevin T., Local Guide</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="visit">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Come say hi</span>
+      <h2>Find the shop</h2>
+    </div>
+    <div class="visit-grid">
+      <div class="visit-info">
+        <div class="info-row"><span class="k">Address</span><span class="v">4825 50 St, Unit 2<br>Wetaskiwin, AB T9A 1J6</span></div>
+        <div class="info-row"><span class="k">Hours</span><span class="v">Every day<br>11:00am – 7:40pm</span></div>
+        <div class="info-row"><span class="k">Phone</span><span class="v"><a href="tel:15877428040">(587) 742-8040</a></span></div>
+        <div class="info-row"><span class="k">Service</span><span class="v">Dine-in · Takeout · Curbside</span></div>
+        <div class="info-row"><span class="k">Facebook</span><span class="v"><a href="https://www.facebook.com/profile.php?id=61586387662066" target="_blank" rel="noopener">Craving Burger Corner</a></span></div>
+      </div>
+      <div class="visit-media">
+        <div class="map-frame">
+          <iframe src="https://www.google.com/maps?q=4825+50+St+Unit+2,+Wetaskiwin,+AB+T9A+1J6&output=embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Craving Burger Corner location on Google Maps"></iframe>
+        </div>
+        <p class="map-fallback">Map not showing? <a href="https://www.google.com/maps/search/?api=1&query=Craving+Burger+Corner+Wetaskiwin" target="_blank" rel="noopener">Open it in Google Maps ↗</a></p>
+        <div class="fb-frame">
+          <iframe
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61586387662066&tabs=timeline&width=500&height=420&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+            style="border:none; overflow:hidden;" scrolling="no" frameborder="0"
+            allowfullscreen="true"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            title="Craving Burger Corner on Facebook">
+          </iframe>
+        </div>
+        <p class="map-fallback">Feed not loading? <a href="https://www.facebook.com/profile.php?id=61586387662066" target="_blank" rel="noopener">Open the Facebook page directly ↗</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="foot-logo">Craving Burger Corner</div>
+      <div class="foot-meta">© 2026 Craving Burger Corner, Wetaskiwin — design concept</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+</script>
+
+</body>
+</html>
